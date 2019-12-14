@@ -2,6 +2,8 @@ import React from 'react';
 import './SingleBoard.scss';
 import PropTypes from 'prop-types';
 import boardData from '../../helpers/data/boardData';
+import Pin from '../Pin/Pin';
+import pinData from '../../helpers/data/pinData';
 
 class SingleBoard extends React.Component {
   static propTypes = {
@@ -11,6 +13,7 @@ class SingleBoard extends React.Component {
 
   state = {
     board: {},
+    pins: [],
   }
 
   componentDidMount() {
@@ -18,6 +21,13 @@ class SingleBoard extends React.Component {
     boardData.getSingleBoard(selectedBoardId)
       .then((request) => {
         this.setState({ board: request.data });
+      })
+      .catch((error) => console.error(error));
+
+    pinData.getPinByBoardId(selectedBoardId)
+      .then((pins) => {
+        console.log(pins);
+        this.setState({ pins });
       })
       .catch((error) => console.error(error));
   }
@@ -38,7 +48,7 @@ class SingleBoard extends React.Component {
           <h2>{board.name}</h2>
           <p>{board.description}</p>
           <div className="d-flex flex-wrap">
-            {/* all pins */}
+            {this.state.pins.map((pin) => <Pin key={pin.id} pin={pin} />)}
           </div>
         </div>
       </div>
