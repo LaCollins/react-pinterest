@@ -13,7 +13,7 @@ class Auth extends React.Component {
   render() {
     return (
       <div className="Auth">
-        <button className="btn btn-dark" onClick={this.loginClickEvent}>Log In With Google</button>
+        <button className="btn btn-dark" onClick={this.loginClickEvent}>グーグルでログイン</button>
       </div>
     );
   }
