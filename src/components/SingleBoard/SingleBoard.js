@@ -33,7 +33,7 @@ class SingleBoard extends React.Component {
 
     return (
       <div>
-        <button className="btn btn-info" onClick={this.removeSelectedBoardId}>x Close Board View</button>
+        <button className="btn btn-info m-2" onClick={this.removeSelectedBoardId}>x Close Board View</button>
         <div className="SingleBoard col-8 offset-2">
           <h2>{board.name}</h2>
           <p>{board.description}</p>
