@@ -26,7 +26,6 @@ class SingleBoard extends React.Component {
 
     pinData.getPinByBoardId(selectedBoardId)
       .then((pins) => {
-        console.log(pins);
         this.setState({ pins });
       })
       .catch((error) => console.error(error));
