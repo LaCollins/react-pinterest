@@ -13,6 +13,9 @@ class BoardsContainer extends React.Component {
 
   state = {
     boards: [],
+    editMode: false,
+    boardToEdit: {},
+    showBoardForm: false,
   }
 
   componentDidMount() {
@@ -31,15 +34,30 @@ class BoardsContainer extends React.Component {
     boardData.saveBoard(newBoard)
       .then(() => {
         this.getBoards();
+        this.setState({ showBoardForm: false });
       })
       .catch((error) => console.error(error));
+  }
+
+  setEditMode = (editMode) => {
+    this.setState({ editMode, showBoardForm: true });
+  }
+
+  setBoardToEdit = (board) => {
+    this.setState({ boardToEdit: board });
+  }
+
+  setShowBoardForm = (e) => {
+    e.preventDefault();
+    this.setState({ showBoardForm: true });
   }
 
   render() {
     return (
     <div>
-    <BoardForm addBoard={this.addBoard}/>
-    <div className="row m-2 d-flex justify-content-around">{this.state.boards.map((board) => <Board key={board.id} board={board} setSingleBoard={this.props.setSingleBoard} />)}</div>
+      <button className="btn btn-dark" onClick={this.setShowBoardForm}>Add a New Board</button>
+      { this.state.showBoardForm && <BoardForm addBoard={this.addBoard} editMode={this.state.editMode} boardToEdit={this.state.boardToEdit} />}
+      <div className="row m-2 d-flex justify-content-around">{this.state.boards.map((board) => <Board key={board.id} board={board} setSingleBoard={this.props.setSingleBoard} setEditMode={this.setEditMode} setBoardToEdit={this.setBoardToEdit} />)}</div>
     </div>);
   }
 }
